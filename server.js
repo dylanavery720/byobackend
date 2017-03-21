@@ -12,12 +12,16 @@ const nightmare = Nightmare({ show: true });
 let payload;
 
 const nm = (query) => nightmare
-  .goto('https://duckduckgo.com')
-  .type('#search_form_input_homepage', `${query}`)
-  .click('#search_button_homepage')
-  .wait('#zero_click_wrapper .c-info__title a')
+  .goto(`https://www.genius.com/artists/${query}`)
+  .click('.mini_card-title')
   .evaluate(function () {
-    return document.querySelector('#zero_click_wrapper .c-info__title a').href;
+    // var nameNodes = document.querySelectorAll('.mini_card-title')
+    // var list = [].slice.call(nameNodes);
+    // return list.map(song => {
+    //   return song
+    // })
+    // return newArray
+    return document.querySelector('div.lyrics').innerText;
   })
   .end()
   .then(function (result) {
@@ -62,8 +66,9 @@ app.post('/api/v1/artists', function(req, res){
 app.post('/api/v1/songs', function(req, res){
   nm(req.body.query)
   setTimeout(() => {
-    const name = payload
-  const lyrics = req.body.lyrics
+  console.log(payload)
+  const name = req.body.query
+  const lyrics = payload
   const song = { name, lyrics, created_at: new Date }
   database('songs').insert(song)
         .then(()=>{
@@ -75,7 +80,7 @@ app.post('/api/v1/songs', function(req, res){
       .catch((error) => {
             console.error('somethings wrong with db')
         })
-      }, 10000)
+      }, 20000)
 
 
 });
