@@ -1,25 +1,24 @@
+const blackertheberry = require('../../data/blackertheberry');
+const alright = require('../../data/alright');
+
 exports.seed = function(knex, Promise) {
   return knex('songs').del()
   .then(() => {
     return Promise.all([
       knex('songs').insert({
         id: 1,
-        name: "The Blacker tTe Berry",
+        name: "The Blacker The Berry",
         artist_id: 1,
-        created_at: new Date
+        created_at: new Date,
+        lyrics: blackertheberry.lyrics
       }),
       knex('songs').insert({
         id: 2,
         name: "Alright",
         artist_id: 1,
-        created_at: new Date
+        created_at: new Date,
+        lyrics: alright.lyrics
       }),
-      knex('songs').insert({
-        id: 3,
-        name: "Ultralight Beam",
-        artist_id: 2,
-        created_at: new Date
-      })
     ]);
   });
 };
