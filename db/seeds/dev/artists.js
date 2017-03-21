@@ -11,6 +11,21 @@ exports.seed = function(knex, Promise) {
         id: 2,
         name: 'Kanye West',
         created_at: new Date
+      }),
+      knex('artists').insert({
+        id: 3,
+        name: 'Future',
+        created_at: new Date
+      }),
+      knex('artists').insert({
+        id: 4,
+        name: 'Drake',
+        created_at: new Date
+      }),
+      knex('artists').insert({
+        id: 5,
+        name: 'Schoolboy Q',
+        created_at: new Date
       })
     ]);
   });

@@ -24,7 +24,7 @@ const minify = (result) => {
 }
 
 nightmare
-  .goto(`https://genius.com/Kendrick-lamar-alright-lyrics`)
+  .goto(`https://genius.com/Schoolboy-q-man-of-the-year-lyrics`)
   .evaluate(function () {
     return document.querySelector('div.lyrics').innerText;
   })
