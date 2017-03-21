@@ -6,10 +6,6 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
-const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: true });
-
-let payload;
 
 const nm = (query) => nightmare
   .goto(`https://www.genius.com/artists/${query}`)
