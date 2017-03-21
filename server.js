@@ -9,21 +9,23 @@ const database = require('knex')(configuration);
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 
-// nightmare
-//   .goto('https://www.genius.com')
-//   .type('#search_form_input_homepage', 'github nightmare')
-//   .click('#search_button_homepage')
-//   .wait('#zero_click_wrapper .c-info__title a')
-//   .evaluate(function () {
-//     return document.querySelector('#zero_click_wrapper .c-info__title a').href;
-//   })
-//   .end()
-//   .then(function (result) {
-//     console.log(result);
-//   })
-//   .catch(function (error) {
-//     console.error('Search failed:', error);
-//   });
+let payload;
+
+const nm = (query) => nightmare
+  .goto('https://duckduckgo.com')
+  .type('#search_form_input_homepage', `${query}`)
+  .click('#search_button_homepage')
+  .wait('#zero_click_wrapper .c-info__title a')
+  .evaluate(function () {
+    return document.querySelector('#zero_click_wrapper .c-info__title a').href;
+  })
+  .end()
+  .then(function (result) {
+    payload = result
+  })
+  .catch(function (error) {
+    console.error('Search failed:', error);
+  });
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,8 +60,9 @@ app.post('/api/v1/artists', function(req, res){
 });
 
 app.post('/api/v1/songs', function(req, res){
-  console.log(req.body)
-  const name = req.body.name
+  nm(req.body.query)
+  setTimeout(() => {
+    const name = payload
   const lyrics = req.body.lyrics
   const song = { name, lyrics, created_at: new Date }
   database('songs').insert(song)
@@ -72,6 +75,9 @@ app.post('/api/v1/songs', function(req, res){
       .catch((error) => {
             console.error('somethings wrong with db')
         })
+      }, 10000)
+
+
 });
 
 app.get('/api/v1/songs', function(req, res){
@@ -84,6 +90,6 @@ app.get('/api/v1/songs', function(req, res){
         })
 });
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log(`app listening port 3000`);
   });
