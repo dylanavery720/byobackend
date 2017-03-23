@@ -12,9 +12,9 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('artists', function(table) {
             table.increments('id').primary();
             table.string('name');
-            table.integer('user_id')
-                 .references('id')
-                 .inTable('users')
+            // table.integer('user_id')
+            //      .references('id')
+            //      .inTable('users');
             table.timestamps();
         }),
 
@@ -34,6 +34,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
     return Promise.all([
       knex.schema.dropTable('songs'),
-        knex.schema.dropTable('artists')
+        knex.schema.dropTable('artists'),
+        knex.schema.dropTable('users')
     ])
 };

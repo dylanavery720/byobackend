@@ -1,4 +1,4 @@
-const fakeUsers = {
+const fakeUsers =
   [{
   "id": 1,
   "first_name": "Kathryn",
