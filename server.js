@@ -165,7 +165,8 @@ app.post('/api/v1/songs', function(req, res){
 });
 
 
-
-app.listen(3001, () => {
+ if(!module.parent) {
+   app.listen(3001, () => {
     console.log(`app listening port 3000`);
   });
+}
