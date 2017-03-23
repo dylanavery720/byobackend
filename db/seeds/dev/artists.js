@@ -5,26 +5,31 @@ exports.seed = function(knex, Promise) {
       knex('artists').insert({
         id: 1,
         name: 'Kendrick Lamar',
+        user_id: 1,
         created_at: new Date
       }),
       knex('artists').insert({
         id: 2,
         name: 'Kanye West',
+        user_id: 1,
         created_at: new Date
       }),
       knex('artists').insert({
         id: 3,
         name: 'Future',
+        user_id: 2,
         created_at: new Date
       }),
       knex('artists').insert({
         id: 4,
         name: 'Drake',
+        user_id: 2,
         created_at: new Date
       }),
       knex('artists').insert({
         id: 5,
         name: 'Schoolboy Q',
+        user_id: 1,
         created_at: new Date
       })
     ]);

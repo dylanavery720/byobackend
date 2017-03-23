@@ -1,10 +1,20 @@
 
 exports.up = function(knex, Promise) {
     return Promise.all([
+        knex.schema.createTable('users', function(table) {
+          table.increments('id').primary();
+          table.string('first_name');
+          table.string('last_name');
+
+          table.timestamps();
+        }),
+
         knex.schema.createTable('artists', function(table) {
             table.increments('id').primary();
             table.string('name');
-
+            table.integer('user_id')
+                 .references('id')
+                 .inTable('users')
             table.timestamps();
         }),
 
