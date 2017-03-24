@@ -238,3 +238,5 @@ app.put('/api/v1/songs:id', function(req, res){
     console.log(`app listening port 3000`);
   });
 }
+
+module.exports = app;

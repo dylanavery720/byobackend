@@ -49,7 +49,7 @@ describe('Server', () => {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body).to.be.a('array');
-          expect(res.body.length).to.equal(2);
+          expect(res.body.length).to.equal(5);
           expect(res.body[0]).to.have.property('name');
           done();
         });
@@ -60,23 +60,112 @@ describe('Server', () => {
       context('if artist is found', function(){
         it('should return a specific artist', function(done) {
           chai.request(app)
-          .get('/api/artists/2')
+          .get('/api/v1/artists/2')
           .end(function(err, res) {
             if (err) { done(err); }
             expect(res).to.have.status(200);
             expect(res).to.be.json;
             expect(res.body).to.be.a('array');
-            expect(res.body).to.have.property('name');
-            expect(res.body.type).to.equal('Kanye West');
+            expect(res.body[0].name).to.equal('Kanye West');
             done();
           });
         });
       });
 
-      context('if no folder is found', function(){
+      context('if no artist is found', function(){
         it('should return a 404', function(done) {
           chai.request(app)
-          .get('/api/v1/songs/3')
+          .get('/api/v1/fartists/378')
+          .end(function(err, res) {
+            expect(res).to.have.status(404);
+            expect(res.body).to.be.a('object');
+            done();
+          });
+        });
+      });
+    });
+
+    describe('GET /api/v1/users', function() {
+      it('should return all users', function(done) {
+        chai.request(app)
+        .get('/api/v1/users')
+        .end(function(err, res) {
+          if (err) { done(err); }
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('array');
+          expect(res.body.length).to.equal(30);
+          expect(res.body[0]).to.have.property('first_name');
+          done();
+        });
+      });
+    });
+
+    describe('GET /api/users/:id', function() {
+      context('if user is found', function(){
+        it('should return a specific user', function(done) {
+          chai.request(app)
+          .get('/api/v1/users/2')
+          .end(function(err, res) {
+            if (err) { done(err); }
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(res.body).to.be.a('array');
+            expect(res.body[0].first_name).to.equal('Raymond');
+            done();
+          });
+        });
+      });
+
+      context('if no user is found', function(){
+        it('should return a 404', function(done) {
+          chai.request(app)
+          .get('/api/v1/fusers/378')
+          .end(function(err, res) {
+            expect(res).to.have.status(404);
+            expect(res.body).to.be.a('object');
+            done();
+          });
+        });
+      });
+    });
+
+    describe('GET /api/v1/songs', function() {
+      it('should return all songs', function(done) {
+        chai.request(app)
+        .get('/api/v1/songs')
+        .end(function(err, res) {
+          if (err) { done(err); }
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('array');
+          expect(res.body.length).to.equal(15);
+          expect(res.body[0]).to.have.property('lyrics');
+          done();
+        });
+      });
+    });
+
+    describe('GET /api/songs/:id', function() {
+      context('if song is found', function(){
+        it('should return a specific song', function(done) {
+          chai.request(app)
+          .get('/api/v1/songs/7')
+          .end(function(err, res) {
+            if (err) { done(err); }
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(res.body).to.be.a('array');
+            expect(res.body[0].name).to.equal('Codeine Crazy');
+            done();
+          });
+        });
+      });
+
+      context('if no song is found', function(){
+        it('should return a 404', function(done) {
+          chai.request(app)
+          .get('/api/v1/fsongs/378')
           .end(function(err, res) {
             expect(res).to.have.status(404);
             expect(res.body).to.be.a('object');
