@@ -67,8 +67,12 @@ app.put('/api/v1/users/:id', function(req, res){
 app.get('/api/v1/users/:id', function(req, res){
   database('users').where('id', req.params.id).select()
         .then((users) => {
+          if(users.length<1) {
+            res.status(404).send({error: 'User does not exist, sorry its gotta be this wayyyyyyy'})
+          } else {
           res.status(200).json(users)
-        })
+        }
+      })
       .catch(function(error) {
             res.status(404).send(error)
         })
@@ -101,8 +105,12 @@ app.get('/api/v1/artists/:id', function(req, res){
 
   database('artists').where('id', req.params.id).select()
         .then((artists) => {
+          if(artists.length<1) {
+            res.status(404).send({error: 'Artist does not exist, sorry its gotta be this wayyyyyyy'})
+          } else {
           res.status(200).json(artists)
-        })
+        }
+      })
       .catch(function(error) {
         console.log(error)
             res.status(404).send(error)
@@ -171,6 +179,9 @@ app.get('/api/v1/songs', function(req, res){
 app.get('/api/v1/songs/:id', function(req, res){
   database('songs').where('id', req.params.id).select()
         .then((songs) => {
+          if(songs.length < 1) {
+            res.status(404).send({error: 'Song does not exist, sorry its gotta be this wayyyyyyy'})
+          }
           res.status(200).json(songs)
         })
       .catch(function(error) {
@@ -236,7 +247,7 @@ app.put('/api/v1/songs/:id', function(req, res){
 
  if(!module.parent) {
    app.listen(3001, () => {
-    console.log(`app listening port 3000`);
+    console.log(`app listening port 3001`);
   });
 }
 
