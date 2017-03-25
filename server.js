@@ -28,7 +28,8 @@ app.post('/api/v1/users', function(req, res){
   const first_name = req.body.first_name
   const last_name = req.body.last_name
   const email = req.body.email
-  const user = {first_name, last_name, email, created_at: new Date}
+  const id = req.body.id || null
+  const user = {id, first_name, last_name, email, created_at: new Date}
   database('users').insert(user)
         .then(()=>{
           database('users').select()
@@ -131,7 +132,8 @@ app.delete('/api/v1/artists/:id', function(req, res){
 
 app.post('/api/v1/artists', function(req, res){
   const name = req.body.name
-  const artist = {name, created_at: new Date}
+  const id = req.body.id || null
+  const artist = {name, id, created_at: new Date}
   database('artists').insert(artist)
         .then(()=>{
           database('artists').select()
@@ -202,7 +204,7 @@ app.delete('/api/v1/songs/:id', function(req, res){
 });
 
 app.post('/api/v1/songs', function(req, res){
-  const id = req.body.id
+  const id = req.body.id || null
   const name = req.body.name
   const lyrics = req.body.lyrics
   const artist_id = req.body.artist_id

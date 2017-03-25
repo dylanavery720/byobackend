@@ -63,7 +63,8 @@ describe('Server', () => {
         chai.request(app)
         .post('/api/v1/artists')
         .send({
-          name: 'Muddy Waters'
+          name: 'Muddy Waters',
+          id: 31
         })
         .end(function(err, res) {
           if (err) { done(err); }
@@ -161,7 +162,8 @@ describe('Server', () => {
         .send({
           first_name: 'Buddy',
           last_name: 'Bottomers',
-          email: '"buddybottomers@gmail.com'
+          email: 'buddybottomers@gmail.com',
+          id: 31
         })
         .end(function(err, res) {
           if (err) { done(err); }
@@ -261,7 +263,8 @@ describe('Server', () => {
         .post('/api/v1/songs')
         .send({
           name: 'Greatest Song Alive',
-          lyrics: `NotgonalieImthegreatestsongalive`
+          lyrics: `NotgonalieImthegreatestsongalive`,
+          id: 31
         })
         .end(function(err, res) {
           if (err) { done(err); }
