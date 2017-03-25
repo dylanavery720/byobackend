@@ -112,7 +112,6 @@ app.get('/api/v1/artists/:id', function(req, res){
         }
       })
       .catch(function(error) {
-        console.log(error)
             res.status(404).send(error)
         })
 });
