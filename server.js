@@ -44,12 +44,12 @@ app.post('/api/v1/users', function(req, res){
         })
 });
 
-app.put('/api/v1/users:id', function(req, res){
+app.put('/api/v1/users/:id', function(req, res){
   const first_name = req.body.first_name
   const last_name = req.body.last_name
   const email = req.body.email
   const user = {first_name, last_name, email, updated_at: new Date}
-  database('users').where('id', request.body.id).update(user)
+  database('users').where('id', req.body.id).update(user)
         .then(()=>{
           database('users').select()
           .then((users) => {
@@ -104,6 +104,7 @@ app.get('/api/v1/artists/:id', function(req, res){
           res.status(200).json(artists)
         })
       .catch(function(error) {
+        console.log(error)
             res.status(404).send(error)
         })
 });
@@ -139,10 +140,10 @@ app.post('/api/v1/artists', function(req, res){
         })
 });
 
-app.put('/api/v1/artists:id', function(req, res){
+app.put('/api/v1/artists/:id', function(req, res){
   const name = req.body.name
   const artist = {name, updated_at: new Date}
-  database('artists').where('id', request.body.id).update(artist)
+  database('artists').where('id', req.body.id).update(artist)
         .then(()=>{
           database('artists').select()
           .then((artists) => {
@@ -211,13 +212,13 @@ app.post('/api/v1/songs', function(req, res){
         })
 });
 
-app.put('/api/v1/songs:id', function(req, res){
+app.put('/api/v1/songs/:id', function(req, res){
   const id = req.body.id
   const name = req.body.name
   const lyrics = req.body.lyrics
   const artist_id = req.body.artist_id
   const song = {id, name, lyrics, artist_id, updated_at: new Date }
-  database('songs').where('id', request.body.id).update(song)
+  database('songs').where('id', req.body.id).update(song)
         .then(()=>{
           database('songs').select()
           .then((songs) => {
