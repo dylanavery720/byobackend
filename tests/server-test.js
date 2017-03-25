@@ -49,7 +49,7 @@ describe('Server', () => {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body).to.be.a('array');
-          expect(res.body.length).to.equal(5);
+          expect(res.body.length).to.equal(30);
           expect(res.body[0]).to.have.property('name');
           done();
         });
@@ -139,7 +139,7 @@ describe('Server', () => {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body).to.be.a('array');
-          expect(res.body.length).to.equal(15);
+          expect(res.body.length).to.equal(30);
           expect(res.body[0]).to.have.property('lyrics');
           done();
         });

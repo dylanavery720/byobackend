@@ -24,7 +24,7 @@ const minify = (result) => {
 }
 
 nightmare
-  .goto(`https://genius.com/Schoolboy-q-man-of-the-year-lyrics`)
+  .goto(`https://genius.com/Bhagavad-gita-chapter-11-annotated`)
   .evaluate(function () {
     return document.querySelector('div.lyrics').innerText;
   })
