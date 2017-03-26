@@ -323,7 +323,7 @@ describe('Server', () => {
             done();
           });
         });
-      });
+      }); ,                
 
       context('if no song is found', function(){
         it('should return a 404', function(done) {

@@ -1,163 +1,157 @@
 const fakeUsers =
   [{
-  "id": 1,
-  "first_name": "Kathryn",
-  "last_name": "Stanley",
-  "email": "kstanley0@webeden.co.uk"
-}, {
-  "id": 2,
-  "first_name": "Raymond",
-  "last_name": "Burke",
-  "email": "rburke1@about.me"
-}, {
-  "id": 3,
-  "first_name": "Fred",
-  "last_name": "Flores",
-  "email": "fflores2@noaa.gov"
-}, {
-  "id": 4,
-  "first_name": "Victor",
-  "last_name": "Gilbert",
-  "email": "vgilbert3@smugmug.com"
-}, {
-  "id": 5,
-  "first_name": "Michael",
-  "last_name": "Black",
-  "email": "mblack4@opensource.org"
-}, {
-  "id": 6,
-  "first_name": "Louis",
-  "last_name": "Morales",
-  "email": "lmorales5@patch.com"
-}, {
-  "id": 7,
-  "first_name": "Sarah",
-  "last_name": "Stone",
-  "email": "sstone6@wunderground.com"
-}, {
-  "id": 8,
-  "first_name": "Ashley",
-  "last_name": "Mitchell",
-  "email": "amitchell7@mashable.com"
-}, {
-  "id": 9,
-  "first_name": "Lois",
-  "last_name": "Dunn",
-  "email": "ldunn8@infoseek.co.jp"
-}, {
-  "id": 10,
-  "first_name": "Julie",
-  "last_name": "Peterson",
-  "email": "jpeterson9@usa.gov"
-}, {
-  "id": 11,
-  "first_name": "Christina",
-  "last_name": "Hansen",
-  "email": "chansena@icio.us"
-}, {
-  "id": 12,
-  "first_name": "Patrick",
-  "last_name": "Lopez",
-  "email": "plopezb@gravatar.com"
-}, {
-  "id": 13,
-  "first_name": "Paul",
-  "last_name": "Garza",
-  "email": "pgarzac@scientificamerican.com"
-}, {
-  "id": 14,
-  "first_name": "Janice",
-  "last_name": "Barnes",
-  "email": "jbarnesd@tiny.cc"
-}, {
-  "id": 15,
-  "first_name": "Carol",
-  "last_name": "Hernandez",
-  "email": "chernandeze@pbs.org"
-}, {
-  "id": 16,
-  "first_name": "Kimberly",
-  "last_name": "Weaver",
-  "email": "kweaverf@narod.ru"
-}, {
-  "id": 17,
-  "first_name": "Jean",
-  "last_name": "Kelley",
-  "email": "jkelleyg@surveymonkey.com"
-}, {
-  "id": 18,
-  "first_name": "Pamela",
-  "last_name": "Kelley",
-  "email": "pkelleyh@fastcompany.com"
-}, {
-  "id": 19,
-  "first_name": "Roy",
-  "last_name": "Bradley",
-  "email": "rbradleyi@marriott.com"
-}, {
-  "id": 20,
-  "first_name": "Henry",
-  "last_name": "Gordon",
-  "email": "hgordonj@discuz.net"
-}, {
-  "id": 21,
-  "first_name": "Carl",
-  "last_name": "Bishop",
-  "email": "cbishopk@gizmodo.com"
-}, {
-  "id": 22,
-  "first_name": "Benjamin",
-  "last_name": "Hall",
-  "email": "bhalll@bloomberg.com"
-}, {
-  "id": 23,
-  "first_name": "Andrea",
-  "last_name": "Garrett",
-  "email": "agarrettm@smh.com.au"
-}, {
-  "id": 24,
-  "first_name": "Frances",
-  "last_name": "Burke",
-  "email": "fburken@gizmodo.com"
-}, {
-  "id": 25,
-  "first_name": "Gary",
-  "last_name": "Austin",
-  "email": "gaustino@businessweek.com"
-}, {
-  "id": 26,
-  "first_name": "Linda",
-  "last_name": "Franklin",
-  "email": "lfranklinp@netscape.com"
-}, {
-  "id": 27,
-  "first_name": "Laura",
-  "last_name": "Thomas",
-  "email": "lthomasq@upenn.edu"
-}, {
-  "id": 28,
-  "first_name": "Cheryl",
-  "last_name": "Weaver",
-  "email": "cweaverr@moonfruit.com"
-}, {
-  "id": 29,
-  "first_name": "Norma",
-  "last_name": "Jackson",
-  "email": "njacksons@pcworld.com"
-}, {
-  "id": 30,
-  "first_name": "Melissa",
-  "last_name": "Ramos",
-  "email": "mramost@yale.edu"
-}]
+    'id': 1,
+    'first_name': 'Kathryn',
+    'last_name': 'Stanley',
+    'email': 'kstanley0@webeden.co.uk'
+  }, {
+    'id': 2,
+    'first_name': 'Raymond',
+    'last_name': 'Burke',
+    'email': 'rburke1@about.me'
+  }, {
+    'id': 3,
+    'first_name': 'Fred',
+    'last_name': 'Flores',
+    'email': 'fflores2@noaa.gov'
+  }, {
+    'id': 4,
+    'first_name': 'Victor',
+    'last_name': 'Gilbert',
+    'email': 'vgilbert3@smugmug.com'
+  }, {
+    'id': 5,
+    'first_name': 'Michael',
+    'last_name': 'Black',
+    'email': 'mblack4@opensource.org'
+  }, {
+    'id': 6,
+    'first_name': 'Louis',
+    'last_name': 'Morales',
+    'email': 'lmorales5@patch.com'
+  }, {
+    'id': 7,
+    'first_name': 'Sarah',
+    'last_name': 'Stone',
+    'email': 'sstone6@wunderground.com'
+  }, {
+    'id': 8,
+    'first_name': 'Ashley',
+    'last_name': 'Mitchell',
+    'email': 'amitchell7@mashable.com'
+  }, {
+    'id': 9,
+    'first_name': 'Lois',
+    'last_name': 'Dunn',
+    'email': 'ldunn8@infoseek.co.jp'
+  }, {
+    'id': 10,
+    'first_name': 'Julie',
+    'last_name': 'Peterson',
+    'email': 'jpeterson9@usa.gov'
+  }, {
+    'id': 11,
+    'first_name': 'Christina',
+    'last_name': 'Hansen',
+    'email': 'chansena@icio.us'
+  }, {
+    'id': 12,
+    'first_name': 'Patrick',
+    'last_name': 'Lopez',
+    'email': 'plopezb@gravatar.com'
+  }, {
+    'id': 13,
+    'first_name': 'Paul',
+    'last_name': 'Garza',
+    'email': 'pgarzac@scientificamerican.com'
+  }, {
+    'id': 14,
+    'first_name': 'Janice',
+    'last_name': 'Barnes',
+    'email': 'jbarnesd@tiny.cc'
+  }, {
+    'id': 15,
+    'first_name': 'Carol',
+    'last_name': 'Hernandez',
+    'email': 'chernandeze@pbs.org'
+  }, {
+    'id': 16,
+    'first_name': 'Kimberly',
+    'last_name': 'Weaver',
+    'email': 'kweaverf@narod.ru'
+  }, {
+    'id': 17,
+    'first_name': 'Jean',
+    'last_name': 'Kelley',
+    'email': 'jkelleyg@surveymonkey.com'
+  }, {
+    'id': 18,
+    'first_name': 'Pamela',
+    'last_name': 'Kelley',
+    'email': 'pkelleyh@fastcompany.com'
+  }, {
+    'id': 19,
+    'first_name': 'Roy',
+    'last_name': 'Bradley',
+    'email': 'rbradleyi@marriott.com'
+  }, {
+    'id': 20,
+    'first_name': 'Henry',
+    'last_name': 'Gordon',
+    'email': 'hgordonj@discuz.net'
+  }, {
+    'id': 21,
+    'first_name': 'Carl',
+    'last_name': 'Bishop',
+    'email': 'cbishopk@gizmodo.com'
+  }, {
+    'id': 22,
+    'first_name': 'Benjamin',
+    'last_name': 'Hall',
+    'email': 'bhalll@bloomberg.com'
+  }, {
+    'id': 23,
+    'first_name': 'Andrea',
+    'last_name': 'Garrett',
+    'email': 'agarrettm@smh.com.au'
+  }, {
+    'id': 24,
+    'first_name': 'Frances',
+    'last_name': 'Burke',
+    'email': 'fburken@gizmodo.com'
+  }, {
+    'id': 25,
+    'first_name': 'Gary',
+    'last_name': 'Austin',
+    'email': 'gaustino@businessweek.com'
+  }, {
+    'id': 26,
+    'first_name': 'Linda',
+    'last_name': 'Franklin',
+    'email': 'lfranklinp@netscape.com'
+  }, {
+    'id': 27,
+    'first_name': 'Laura',
+    'last_name': 'Thomas',
+    'email': 'lthomasq@upenn.edu'
+  }, {
+    'id': 28,
+    'first_name': 'Cheryl',
+    'last_name': 'Weaver',
+    'email': 'cweaverr@moonfruit.com'
+  }, {
+    'id': 29,
+    'first_name': 'Norma',
+    'last_name': 'Jackson',
+    'email': 'njacksons@pcworld.com'
+  }, {
+    'id': 30,
+    'first_name': 'Melissa',
+    'last_name': 'Ramos',
+    'email': 'mramost@yale.edu'
+  }]
 
-
-
-
-
-
-
-exports.seed = function(knex, Promise) {
+exports.seed = (knex, Promise) => {
   return knex('users').del()
   .then(() => {
     return Promise.all([

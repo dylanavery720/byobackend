@@ -1,4 +1,4 @@
-exports.seed = function(knex, Promise) {
+exports.seed = (knex, Promise) => {
   return knex('artists').del()
   .then(() => {
     return Promise.all([

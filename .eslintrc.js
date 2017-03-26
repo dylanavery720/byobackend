@@ -1,4 +1,4 @@
-{
+module.exports = {
   "parser": "babel-eslint",
   "extends": "airbnb/base",
   "env": {
@@ -19,7 +19,11 @@
     "no-case-declarations": [0],
     "no-alert": [0],
     "arrow-body-style": [0],
+    "new-parens": [0],
+    "linebreak-style": [0],
     "semi": [0],
+    "quote-props": [0],
+    "comma-dangle": [0],
     "consistent-return": [0],
     "import/no-extraneous-dependencies": [0],
     "import/extensions": [0],
