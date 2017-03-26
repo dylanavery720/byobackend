@@ -3,6 +3,7 @@ process.env.NODE_ENV = 'test';
 const configuration = require('../knexfile')['test'];
 const database = require('knex')(configuration);
 const chai = require('chai');
+
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const app = require('../server.js');
@@ -11,27 +12,27 @@ const app = require('../server.js');
 chai.use(chaiHttp);
 
 describe('Server', () => {
-  beforeEach(function(done) {
-  database.migrate.rollback()
-  .then(function() {
+  beforeEach((done) => {
+    database.migrate.rollback()
+  .then(() => {
     database.migrate.latest()
-    .then(function() {
+    .then(() => {
       return database.seed.run()
-      .then(function() {
+      .then(() => {
         done();
       });
     });
   });
-});
+  });
   it('should exist', () => {
     expect(app).to.exist;
   });
 
-  describe('GET /', function() {
-    it('should return a 200 and html', function(done) {
+  describe('GET /', () => {
+    it('should return a 200 and html', (done) => {
       chai.request(app)
       .get('/')
-      .end(function(err, res) {
+      .end((err, res) => {
         if (err) { done(err); }
         expect(res).to.have.status(200);
         expect(res).to.be.html;
@@ -40,33 +41,33 @@ describe('Server', () => {
     });
   });
 
-  //ARTISTS TEST
+      //  ARTISTS TEST
 
-    describe('GET /api/v1/artists', function() {
-      it('should return all artists', function(done) {
-        chai.request(app)
-        .get('/api/v1/artists')
-        .end(function(err, res) {
-          if (err) { done(err); }
-          expect(res).to.have.status(200);
-          expect(res).to.be.json;
-          expect(res.body).to.be.a('array');
-          expect(res.body.length).to.equal(30);
-          expect(res.body[0]).to.have.property('name');
-          done();
-        });
+  describe('GET /api/v1/artists', () => {
+    it('should return all artists', (done) => {
+      chai.request(app)
+      .get('/api/v1/artists')
+      .end((err, res) => {
+        if (err) { done(err); }
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('array');
+        expect(res.body.length).to.equal(30);
+        expect(res.body[0]).to.have.property('name');
+        done();
       });
     });
+  });
 
-    describe('POST /api/v1/artists', function() {
-      it('should add a new artist', function(done) {
-        chai.request(app)
+  describe('POST /api/v1/artists', () => {
+    it('should add a new artist', (done) => {
+      chai.request(app)
         .post('/api/v1/artists')
         .send({
           name: 'Muddy Waters',
           id: 31
         })
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) { done(err); }
           expect(res).to.have.status(200);
           expect(res).to.be.json;
@@ -76,15 +77,15 @@ describe('Server', () => {
           expect(res.body[30].id).to.equal(31);
           done();
         });
-      });
     });
+  });
 
-    describe('GET /api/artists/:id', function() {
-      context('if artist is found', function(){
-        it('should return a specific artist', function(done) {
-          chai.request(app)
+  describe('GET /api/artists/:id', () => {
+    context('if artist is found', () => {
+      it('should return a specific artist', (done) => {
+        chai.request(app)
           .get('/api/v1/artists/2')
-          .end(function(err, res) {
+          .end((err, res) => {
             if (err) { done(err); }
             expect(res).to.have.status(200);
             expect(res).to.be.json;
@@ -92,28 +93,28 @@ describe('Server', () => {
             expect(res.body[0].name).to.equal('Kanye West');
             done();
           });
-        });
       });
+    });
 
-      context('if no artist is found', function(){
-        it('should return a 404', function(done) {
-          chai.request(app)
+    context('if no artist is found', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
           .get('/api/v1/artists/378')
-          .end(function(err, res) {
+          .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.be.a('object');
             done();
           });
-        });
       });
     });
+  });
 
-    describe('DELETE /api/artists/:id', function() {
-      context('if artist is found', function(){
-        it('should delete a specific artist', function(done) {
-          chai.request(app)
+  describe('DELETE /api/artists/:id', () => {
+    context('if artist is found', () => {
+      it('should delete a specific artist', (done) => {
+        chai.request(app)
           .delete('/api/v1/artists/2')
-          .end(function(err, res) {
+          .end((err, res) => {
             if (err) { done(err); }
             expect(res).to.have.status(200);
             expect(res).to.be.json;
@@ -121,29 +122,29 @@ describe('Server', () => {
             expect(res.body.length).to.equal(29);
             done();
           });
-        });
       });
+    });
 
-      context('if no artist is found', function(){
-        it('should return a 404', function(done) {
-          chai.request(app)
+    context('if no artist is found', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
           .get('/api/v1/fartists/378')
-          .end(function(err, res) {
+          .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.be.a('object');
             done();
           });
-        });
       });
     });
+  });
 
-    //USERS TESTS
+    //  USERS TESTS
 
-    describe('GET /api/v1/users', function() {
-      it('should return all users', function(done) {
-        chai.request(app)
+  describe('GET /api/v1/users', () => {
+    it('should return all users', (done) => {
+      chai.request(app)
         .get('/api/v1/users')
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) { done(err); }
           expect(res).to.have.status(200);
           expect(res).to.be.json;
@@ -152,12 +153,12 @@ describe('Server', () => {
           expect(res.body[0]).to.have.property('first_name');
           done();
         });
-      });
     });
+  });
 
-    describe('POST /api/v1/users', function() {
-      it('should add a new user', function(done) {
-        chai.request(app)
+  describe('POST /api/v1/users', () => {
+    it('should add a new user', (done) => {
+      chai.request(app)
         .post('/api/v1/users')
         .send({
           first_name: 'Buddy',
@@ -165,7 +166,7 @@ describe('Server', () => {
           email: 'buddybottomers@gmail.com',
           id: 31
         })
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) { done(err); }
           expect(res).to.have.status(200);
           expect(res).to.be.json;
@@ -177,15 +178,15 @@ describe('Server', () => {
           expect(res.body[30].id).to.equal(31);
           done();
         });
-      });
     });
+  });
 
-    describe('GET /api/users/:id', function() {
-      context('if user is found', function(){
-        it('should return a specific user', function(done) {
-          chai.request(app)
+  describe('GET /api/users/:id', () => {
+    context('if user is found', () => {
+      it('should return a specific user', (done) => {
+        chai.request(app)
           .get('/api/v1/users/2')
-          .end(function(err, res) {
+          .end((err, res) => {
             if (err) { done(err); }
             expect(res).to.have.status(200);
             expect(res).to.be.json;
@@ -193,28 +194,28 @@ describe('Server', () => {
             expect(res.body[0].first_name).to.equal('Raymond');
             done();
           });
-        });
       });
+    });
 
-      context('if no user is found', function(){
-        it('should return a 404', function(done) {
-          chai.request(app)
+    context('if no user is found', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
           .get('/api/v1/users/378')
-          .end(function(err, res) {
+          .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.be.a('object');
             done();
           });
-        });
       });
     });
+  });
 
-    describe('DELETE /api/users/:id', function() {
-      context('if user is found', function(){
-        it('should delete a specific user', function(done) {
-          chai.request(app)
+  describe('DELETE /api/users/:id', () => {
+    context('if user is found', () => {
+      it('should delete a specific user', (done) => {
+        chai.request(app)
           .delete('/api/v1/users/2')
-          .end(function(err, res) {
+          .end((err, res) => {
             if (err) { done(err); }
             expect(res).to.have.status(200);
             expect(res).to.be.json;
@@ -222,30 +223,30 @@ describe('Server', () => {
             expect(res.body.length).to.equal(29);
             done();
           });
-        });
       });
+    });
 
-      context('if no user is found', function(){
-        it('should return a 404', function(done) {
-          chai.request(app)
+    context('if no user is found', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
           .get('/api/v1/fusers/378')
-          .end(function(err, res) {
+          .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.be.a('object');
             done();
           });
-        });
       });
     });
+  });
 
 
-//SONGS TESTS
+// SONGS TESTS
 
-    describe('GET /api/v1/songs', function() {
-      it('should return all songs', function(done) {
-        chai.request(app)
+  describe('GET /api/v1/songs', () => {
+    it('should return all songs', (done) => {
+      chai.request(app)
         .get('/api/v1/songs')
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) { done(err); }
           expect(res).to.have.status(200);
           expect(res).to.be.json;
@@ -254,38 +255,38 @@ describe('Server', () => {
           expect(res.body[0]).to.have.property('lyrics');
           done();
         });
-      });
     });
+  });
 
-    describe('POST /api/v1/songs', function() {
-      it('should add a new song songs', function(done) {
-        chai.request(app)
+  describe('POST /api/v1/songs', () => {
+    it('should add a new song songs', (done) => {
+      chai.request(app)
         .post('/api/v1/songs')
         .send({
           name: 'Greatest Song Alive',
-          lyrics: `NotgonalieImthegreatestsongalive`,
+          lyrics: 'NotgonalieImthegreatestsongalive',
           id: 31
         })
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) { done(err); }
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body).to.be.a('array');
           expect(res.body.length).to.equal(31);
           expect(res.body[30].name).to.equal('Greatest Song Alive');
-          expect(res.body[30].lyrics).to.equal(`NotgonalieImthegreatestsongalive`);
+          expect(res.body[30].lyrics).to.equal('NotgonalieImthegreatestsongalive');
           expect(res.body[30].id).to.equal(31);
           done();
         });
-      });
     });
+  });
 
-    describe('GET /api/songs/:id', function() {
-      context('if song is found', function(){
-        it('should return a specific song', function(done) {
-          chai.request(app)
+  describe('GET /api/songs/:id', () => {
+    context('if song is found', () => {
+      it('should return a specific song', (done) => {
+        chai.request(app)
           .get('/api/v1/songs/7')
-          .end(function(err, res) {
+          .end((err, res) => {
             if (err) { done(err); }
             expect(res).to.have.status(200);
             expect(res).to.be.json;
@@ -293,28 +294,28 @@ describe('Server', () => {
             expect(res.body[0].name).to.equal('Codeine Crazy');
             done();
           });
-        });
       });
+    });
 
-      context('if no song is found', function(){
-        it('should return a 404', function(done) {
-          chai.request(app)
+    context('if no song is found', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
           .get('/api/v1/songs/378')
-          .end(function(err, res) {
+          .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.be.a('object');
             done();
           });
-        });
       });
     });
+  });
 
-    describe('DELETE /api/songs/:id', function() {
-      context('if song is found', function(){
-        it('should delete a specific song', function(done) {
-          chai.request(app)
+  describe('DELETE /api/songs/:id', () => {
+    context('if song is found', () => {
+      it('should delete a specific song', (done) => {
+        chai.request(app)
           .delete('/api/v1/songs/7')
-          .end(function(err, res) {
+          .end((err, res) => {
             if (err) { done(err); }
             expect(res).to.have.status(200);
             expect(res).to.be.json;
@@ -322,22 +323,36 @@ describe('Server', () => {
             expect(res.body.length).to.equal(29);
             done();
           });
-        });
       });
+    });
 
-      context('if no song is found', function(){
-        it('should return a 404', function(done) {
-          chai.request(app)
+    context('if no song is found', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
           .delete('/api/v1/fsongs/378')
-          .end(function(err, res) {
+          .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.be.a('object');
             done();
           });
-        });
       });
     });
-
-
-
   });
+
+//  CUSTOM TESTS
+
+  describe('GET /api/v1/songs/:id/charcount', () => {
+    it('should the character length of a songs lyrics', (done) => {
+      chai.request(app)
+    .get('/api/v1/songs/23/charcount')
+    .end((err, res) => {
+      if (err) { done(err); }
+      expect(res).to.have.status(200);
+      expect(res).to.be.json;
+      expect(res.body[0]).to.have.property('charactercount');
+      expect(res.body[0].charactercount).to.equal(1941);
+      done();
+    });
+    });
+  });
+});

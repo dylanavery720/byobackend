@@ -1,41 +1,37 @@
+exports.up = (knex, Promise) => {
+  return Promise.all([
+    knex.schema.createTable('users', (table) => {
+      table.increments('id').primary();
+      table.string('first_name');
+      table.string('last_name');
+      table.string('email');
 
-exports.up = function(knex, Promise) {
-    return Promise.all([
-        knex.schema.createTable('users', function(table) {
-          table.increments('id').primary();
-          table.string('first_name');
-          table.string('last_name');
-          table.string('email');
+      table.timestamps();
+    }),
 
-          table.timestamps();
-        }),
+    knex.schema.createTable('artists', (table) => {
+      table.increments('id').primary();
+      table.string('name');
+      table.timestamps();
+    }),
 
-        knex.schema.createTable('artists', function(table) {
-            table.increments('id').primary();
-            table.string('name');
-            // table.integer('user_id')
-            //      .references('id')
-            //      .inTable('users');
-            table.timestamps();
-        }),
-
-        knex.schema.createTable('songs', function(table){
-            table.increments('id').primary();
-            table.string('name');
-            table.string('lyrics', 52000);
-            table.integer('artist_id')
+    knex.schema.createTable('songs', (table) => {
+      table.increments('id').primary();
+      table.string('name');
+      table.string('lyrics', 52000);
+      table.integer('artist_id')
                  .references('id')
                  .inTable('artists');
 
-            table.timestamps();
-        })
-    ])
+      table.timestamps();
+    })
+  ])
 };
 
-exports.down = function(knex, Promise) {
-    return Promise.all([
-      knex.schema.dropTable('songs'),
-        knex.schema.dropTable('artists'),
-        knex.schema.dropTable('users')
-    ])
+exports.down = (knex, Promise) => {
+  return Promise.all([
+    knex.schema.dropTable('songs'),
+    knex.schema.dropTable('artists'),
+    knex.schema.dropTable('users')
+  ])
 };
