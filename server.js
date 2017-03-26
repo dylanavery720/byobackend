@@ -93,9 +93,24 @@ app.delete('/api/v1/users/:id', function(req, res){
 });
 
 app.get('/api/v1/artists', function(req, res){
+  let search = req.query.search
   database('artists').select()
         .then((artists) => {
-          res.status(200).json(artists)
+          if(search){
+            let searched =  artists.filter((obj)=> {
+              if (obj.name == search) {
+              return obj
+              }
+            })
+            if(searched.length<1){
+              res.status(404).send({error: 'no match'})
+            } else {
+              res.status(200).json(searched)
+            }
+          }
+          else {
+              res.status(200).json(artists)
+            }
         })
         .catch(function(error) {
           res.status(404).send(error)
