@@ -338,6 +338,21 @@ describe('Server', () => {
       });
     });
 
+//CUSTOM TESTS
 
+describe('GET /api/v1/songs/:id/charcount', function() {
+  it('should the character length of a songs lyrics', function(done) {
+    chai.request(app)
+    .get('/api/v1/songs/23/charcount')
+    .end(function(err, res) {
+      if (err) { done(err); }
+      expect(res).to.have.status(200);
+      expect(res).to.be.json;
+      expect(res.body[0]).to.have.property('charactercount');
+      expect(res.body[0].charactercount).to.equal(1941);
+      done();
+    });
+  });
+});
 
   });
