@@ -190,6 +190,19 @@ app.get('/api/v1/songs/:id', function(req, res){
         })
 });
 
+app.get('/api/v1/songs/:id/charcount', function(req, res){
+  database('songs').where('id', req.params.id).select()
+        .then((songs) => {
+          if(songs.length < 1) {
+            res.status(404).send({error: 'Song does not exist, sorry its gotta be this wayyyyyyy'})
+          }
+          res.status(200).json({charactercount:songs[0].lyrics.length})
+        })
+      .catch(function(error) {
+            res.status(404).send(error)
+        })
+});
+
 app.delete('/api/v1/songs/:id', function(req, res){
   database('songs').where('id', req.params.id).del()
       .then(()=>{
