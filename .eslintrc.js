@@ -9,6 +9,7 @@ module.exports = {
   "rules": {
     "quotes": [2, "single"],
     "eol-last": [0],
+    "dot-notation": [0],
     "import/no-unresolved": [0],
     "no-mixed-requires": [0],
     "class-methods-use-this": [0],
