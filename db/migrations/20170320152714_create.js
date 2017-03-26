@@ -22,7 +22,7 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('songs', function(table){
             table.increments('id').primary();
             table.string('name');
-            table.string('lyrics', 12000);
+            table.string('lyrics', 52000);
             table.integer('artist_id')
                  .references('id')
                  .inTable('artists');

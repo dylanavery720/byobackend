@@ -1,0 +1,3 @@
+module.exports = {
+  lyrics: `Lately, I've become accustomed to the wayThe ground opens up and envelopes meEach time I go out to walk the dog.Or the broad edged silly music the windMakes when I run for a bus . . .Things have come to that.And now, each night I count the stars,And each night I get the same number.And when they will not come to be counted,I count the holes they leave.Nobody sings anymore.And then last night, I tiptoed upTo my daughter's room and heard herTalking to someone, and when I openedThe door, there was no one there . . .Only she on her knees, peeking intoHer own clasped hands.`
+}
