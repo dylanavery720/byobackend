@@ -1,15 +1,18 @@
 const express = require('express');
 
 const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser')
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
+app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.set('port', process.env.PORT || 3001);
 
 app.get('/', (request, response) => {
   response.sendFile(__dirname + '/' + 'index.html')
@@ -275,9 +278,9 @@ app.put('/api/v1/songs/:id', (req, res) => {
 
 
 if (!module.parent) {
-  app.listen(3001, () => {
-    console.log('app listening port 3001');
-  });
+  app.listen(app.get('port'), () => {
+  console.log(`I be poppin' tags at ${app.get('port')}.`)
+})
 }
 
 module.exports = app;
