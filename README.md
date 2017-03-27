@@ -89,8 +89,3 @@
 <code>GET</code>/api/v1/songs/:id/charcount
 
 * In case you want to make sure there isn't a bias taking place with regards to text length, this will return the length of the text of the lyrics you are specifying by id in the parameter.
-
-
-<!-- ![passing-tests-screenshot](http://i.imgur.com/c7lZroW.png)
-
-*cannot confirm or deny -->

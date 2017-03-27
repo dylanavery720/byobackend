@@ -73,8 +73,8 @@ describe('Server', () => {
       chai.request(app)
         .post('/api/v1/artists')
         .send({
-          name: 'Muddy Waters',
-          id: 31
+          id: 31,
+          name: 'Muddy Waters'
         })
         .end((err, res) => {
           if (err) { done(err); }
@@ -111,8 +111,8 @@ context('if PUT is done properly', () => {
     chai.request(app)
       .put('/api/v1/artists/23')
       .send({
-        name: 'Mud B',
-        id: 23
+        id: 23,
+        name: 'Mud B'
       })
       .end((err, res) => {
         if (err) { done(err); }
@@ -224,10 +224,10 @@ context('if PUT is not done properly', () => {
         chai.request(app)
           .post('/api/v1/users')
           .send({
+            id: 31,
             first_name: 'Buddy',
             last_name: 'Bottomers',
-            email: 'buddybottomers@gmail.com',
-            id: 31
+            email: 'buddybottomers@gmail.com'
           })
           .end((err, res) => {
             if (err) { done(err); }
@@ -268,10 +268,10 @@ context('if PUT is not done properly', () => {
         chai.request(app)
           .put('/api/v1/users/4')
           .send({
+            id: 4,
             first_name: 'B',
             last_name: 'Bot',
-            email: 'budbot@gmail.com',
-            id: 4
+            email: 'budbot@gmail.com'
           })
           .end((err, res) => {
             if (err) { done(err); }
@@ -388,9 +388,9 @@ context('if PUT is not done properly', () => {
         chai.request(app)
           .post('/api/v1/songs')
           .send({
+            id: 31,
             name: 'Greatest Song Alive',
-            lyrics: 'NotgonalieImthegreatestsongalive',
-            id: 31
+            lyrics: 'NotgonalieImthegreatestsongalive'
           })
           .end((err, res) => {
             if (err) { done(err); }
@@ -429,9 +429,9 @@ describe('PUT /api/v1/songs', () => {
       chai.request(app)
         .put('/api/v1/songs/25')
         .send({
+          id: 25,
           name: 'A Whole New World',
-          lyrics: 'ANewExcitingPointOfView',
-          id: 25
+          lyrics: 'ANewExcitingPointOfView'
         })
         .end((err, res) => {
           if (err) { done(err); }
@@ -524,7 +524,7 @@ describe('PUT /api/v1/songs', () => {
 
   describe('GET /api/v1/songs/:id/charcount', () => {
     context('if song is found', () => {
-      it('should the character length of a songs lyrics', (done) => {
+      it('should return the character length of a songs lyrics', (done) => {
         chai.request(app)
       .get('/api/v1/songs/23/charcount')
       .end((err, res) => {
@@ -540,6 +540,33 @@ describe('PUT /api/v1/songs', () => {
       it('should reject with a 404', (done) => {
         chai.request(app)
       .get('/api/v1/songs/43/charcount')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res).to.be.json;
+        done();
+      });
+      });
+    })
+  });
+
+  describe('GET /api/v1/artists?search', () => {
+    context('if song is found', () => {
+      it('should return the searched artist', (done) => {
+        chai.request(app)
+      .get('/api/v1/artists?search=Drake')
+      .end((err, res) => {
+        if (err) { done(err); }
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body[0].name).to.equal('Drake');
+        done();
+      });
+      });
+    })
+    context('if song is not found', () => {
+      it('should reject with a 404', (done) => {
+        chai.request(app)
+      .get('/api/v1/artists?search=Drak')
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res).to.be.json;
