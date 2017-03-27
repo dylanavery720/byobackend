@@ -60,6 +60,7 @@ describe('Server', () => {
   });
 
   describe('POST /api/v1/artists', () => {
+  context('if POST is done properly', () => {
     it('should add a new artist', (done) => {
       chai.request(app)
         .post('/api/v1/artists')
@@ -78,7 +79,23 @@ describe('Server', () => {
           done();
         });
     });
-  });
+  })
+  context('if POST is not done properly', () => {
+    it('should reject with a 404', (done) => {
+      chai.request(app)
+        .post('/api/v1/artists')
+        .send({
+          nam: 'Muddy Waters',
+          ido: 31
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res).to.be.json;
+          done();
+        });
+    });
+  })
+});
 
   describe('GET /api/artists/:id', () => {
     context('if artist is found', () => {
@@ -113,7 +130,7 @@ describe('Server', () => {
     context('if artist is found', () => {
       it('should delete a specific artist', (done) => {
         chai.request(app)
-          .delete('/api/v1/artists/2')
+          .del('/api/v1/artists/20')
           .end((err, res) => {
             if (err) { done(err); }
             expect(res).to.have.status(200);
@@ -157,27 +174,46 @@ describe('Server', () => {
   });
 
   describe('POST /api/v1/users', () => {
-    it('should add a new user', (done) => {
-      chai.request(app)
-        .post('/api/v1/users')
-        .send({
-          first_name: 'Buddy',
-          last_name: 'Bottomers',
-          email: 'buddybottomers@gmail.com',
-          id: 31
-        })
-        .end((err, res) => {
-          if (err) { done(err); }
-          expect(res).to.have.status(200);
-          expect(res).to.be.json;
-          expect(res.body).to.be.a('array');
-          expect(res.body.length).to.equal(31);
-          expect(res.body[30].first_name).to.equal('Buddy');
-          expect(res.body[30].last_name).to.equal('Bottomers');
-          expect(res.body[30].email).to.equal('buddybottomers@gmail.com');
-          expect(res.body[30].id).to.equal(31);
-          done();
-        });
+    context('if POST is done properly', () => {
+      it('should add a new user', (done) => {
+        chai.request(app)
+          .post('/api/v1/users')
+          .send({
+            first_name: 'Buddy',
+            last_name: 'Bottomers',
+            email: 'buddybottomers@gmail.com',
+            id: 31
+          })
+          .end((err, res) => {
+            if (err) { done(err); }
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(res.body).to.be.a('array');
+            expect(res.body.length).to.equal(31);
+            expect(res.body[30].first_name).to.equal('Buddy');
+            expect(res.body[30].last_name).to.equal('Bottomers');
+            expect(res.body[30].email).to.equal('buddybottomers@gmail.com');
+            expect(res.body[30].id).to.equal(31);
+            done();
+          });
+      });
+    });
+    context('if POST is not done properly', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
+          .post('/api/v1/users')
+          .send({
+            name: 'Buddy',
+            last: 'Bottomers',
+            mail: 'buddybottomers@gmail.com',
+            ido: 31
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+            expect(res).to.be.json;
+            done();
+          });
+      });
     });
   });
 
@@ -259,27 +295,45 @@ describe('Server', () => {
   });
 
   describe('POST /api/v1/songs', () => {
-    it('should add a new song songs', (done) => {
-      chai.request(app)
-        .post('/api/v1/songs')
-        .send({
-          name: 'Greatest Song Alive',
-          lyrics: 'NotgonalieImthegreatestsongalive',
-          id: 31
-        })
-        .end((err, res) => {
-          if (err) { done(err); }
-          expect(res).to.have.status(200);
-          expect(res).to.be.json;
-          expect(res.body).to.be.a('array');
-          expect(res.body.length).to.equal(31);
-          expect(res.body[30].name).to.equal('Greatest Song Alive');
-          expect(res.body[30].lyrics).to.equal('NotgonalieImthegreatestsongalive');
-          expect(res.body[30].id).to.equal(31);
-          done();
-        });
-    });
-  });
+    context('if POST is done properly', () => {
+      it('should add a new song songs', (done) => {
+        chai.request(app)
+          .post('/api/v1/songs')
+          .send({
+            name: 'Greatest Song Alive',
+            lyrics: 'NotgonalieImthegreatestsongalive',
+            id: 31
+          })
+          .end((err, res) => {
+            if (err) { done(err); }
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(res.body).to.be.a('array');
+            expect(res.body.length).to.equal(31);
+            expect(res.body[30].name).to.equal('Greatest Song Alive');
+            expect(res.body[30].lyrics).to.equal('NotgonalieImthegreatestsongalive');
+            expect(res.body[30].id).to.equal(31);
+            done();
+          });
+      });
+    })
+    context('if POST is not done properly', () => {
+      it('should reject with a 404', (done) => {
+        chai.request(app)
+          .post('/api/v1/songs')
+          .send({
+            nam: 'Greatest Song Alive',
+            lyric: 'NotgonalieImthegreatestsongalive',
+            ido: 31
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+            expect(res).to.be.json;
+            done();
+          });
+      });
+    })
+});
 
   describe('GET /api/songs/:id', () => {
     context('if song is found', () => {
@@ -342,17 +396,29 @@ describe('Server', () => {
 //  CUSTOM TESTS
 
   describe('GET /api/v1/songs/:id/charcount', () => {
-    it('should the character length of a songs lyrics', (done) => {
-      chai.request(app)
-    .get('/api/v1/songs/23/charcount')
-    .end((err, res) => {
-      if (err) { done(err); }
-      expect(res).to.have.status(200);
-      expect(res).to.be.json;
-      expect(res.body[0]).to.have.property('charactercount');
-      expect(res.body[0].charactercount).to.equal(1941);
-      done();
-    });
-    });
+    context('if song is found', () => {
+      it('should the character length of a songs lyrics', (done) => {
+        chai.request(app)
+      .get('/api/v1/songs/23/charcount')
+      .end((err, res) => {
+        if (err) { done(err); }
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body.charactercount).to.equal(1941);
+        done();
+      });
+      });
+    })
+    context('if song is not found', () => {
+      it('should reject with a 404', (done) => {
+        chai.request(app)
+      .get('/api/v1/songs/43/charcount')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res).to.be.json;
+        done();
+      });
+      });
+    })
   });
 });
