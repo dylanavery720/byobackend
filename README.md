@@ -6,7 +6,8 @@
  This server is built on express, and connects to  Postgres using knex middleware. Most of the data was scraped from Genius.com using our <code>nightmare.js</code> scraper. This scraper also takes the lyrics that it scrapes and pastes them into a minifier located at http://www.willpeavy.com/minifier/ so that they are ready to be added to the database with no hidden characters to get in the way. This block of minified text should also be good for running them through sentiment analysis. Endpoints are tested using Mocha Chai. We have three tables, one for users, one for artists, and one for songs. Songs belong to artists.
 
 ## End Points
-<!-- you can check out the following endpoints on [heroku](https://byob-dan1.herokuapp.com/) -->
+[End Points](https://bringyourownbible.herokuapp.com/)
+
 *****
 ### Main
 
