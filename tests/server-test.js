@@ -24,6 +24,14 @@ describe('Server', () => {
     });
   });
   });
+
+  afterEach(function(done) {
+   database.migrate.rollback()
+   .then(function() {
+     done();
+   });
+ });
+
   it('should exist', () => {
     expect(app).to.exist;
   });
@@ -95,6 +103,43 @@ describe('Server', () => {
         });
     });
   })
+});
+
+describe('PUT /api/v1/artists', () => {
+context('if PUT is done properly', () => {
+  it('should update an artist', (done) => {
+    chai.request(app)
+      .put('/api/v1/artists/23')
+      .send({
+        name: 'Mud B',
+        id: 23
+      })
+      .end((err, res) => {
+        if (err) { done(err); }
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('array');
+        expect(res.body.length).to.equal(30);
+        expect(res.body[22].name).to.equal('Mud B');
+        expect(res.body[22].id).to.equal(23);
+        done();
+      });
+  });
+})
+context('if PUT is not done properly', () => {
+  it('should reject with a 404', (done) => {
+    chai.request(app)
+      .put('/api/v1/artists/23')
+      .send({
+        nam: 'Muddy Waters',
+        ido: 31
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+})
 });
 
   describe('GET /api/artists/:id', () => {
@@ -217,6 +262,49 @@ describe('Server', () => {
     });
   });
 
+  describe('PUT /api/v1/users', () => {
+    context('if PUT is done properly', () => {
+      it('should update a user', (done) => {
+        chai.request(app)
+          .put('/api/v1/users/4')
+          .send({
+            first_name: 'B',
+            last_name: 'Bot',
+            email: 'budbot@gmail.com',
+            id: 4
+          })
+          .end((err, res) => {
+            if (err) { done(err); }
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(res.body).to.be.a('array');
+            expect(res.body.length).to.equal(30);
+            expect(res.body[3].first_name).to.equal('B');
+            expect(res.body[3].last_name).to.equal('Bot');
+            expect(res.body[3].email).to.equal('budbot@gmail.com');
+            expect(res.body[3].id).to.equal(4);
+            done();
+          });
+      });
+    });
+    context('if PUT is not done properly', () => {
+      it('should return a 404', (done) => {
+        chai.request(app)
+          .put('/api/v1/usders/123')
+          .send({
+            nam: 'Buddy',
+            last: 'Bottomers',
+            maisl: 'buddybottomers@gmail.com',
+            ido: 31
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+            done();
+          });
+      });
+    });
+  });
+
   describe('GET /api/users/:id', () => {
     context('if user is found', () => {
       it('should return a specific user', (done) => {
@@ -333,6 +421,45 @@ describe('Server', () => {
           });
       });
     })
+});
+
+describe('PUT /api/v1/songs', () => {
+  context('if PUT is done properly', () => {
+    it('should update song', (done) => {
+      chai.request(app)
+        .put('/api/v1/songs/25')
+        .send({
+          name: 'A Whole New World',
+          lyrics: 'ANewExcitingPointOfView',
+          id: 25
+        })
+        .end((err, res) => {
+          if (err) { done(err); }
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('array');
+          expect(res.body.length).to.equal(30);
+          expect(res.body[24].name).to.equal('A Whole New World');
+          expect(res.body[24].lyrics).to.equal('ANewExcitingPointOfView');
+          expect(res.body[24].id).to.equal(25);
+          done();
+        });
+    });
+  })
+  context('if PUT is not done properly', () => {
+    it('should reject with a 404', (done) => {
+      chai.request(app)
+        .put('/api/v1/jsongs/255')
+        .send({
+          nam: 'Gnn',
+          id: 25
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
+  })
 });
 
   describe('GET /api/songs/:id', () => {
